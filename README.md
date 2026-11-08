@@ -1,2 +1,2 @@
 # KioskHelper
-A collection of Unity prefabs and scripts to help with kiosk creation.
+A collection of utility scripts for Unity kiosk applications.
