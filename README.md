@@ -1,6 +1,6 @@
 # KioskHelper
 
-A collection of utility scripts for Unity kiosk applications.
+A WIP collection of utility scripts for Unity kiosk applications.
 
 I decided to publish a bunch of stuff I've used over the years to help
 in building kiosk type games and applications. Some of these like the
