@@ -7,6 +7,12 @@ in building kiosk type games and applications. Some of these like the
 Corner Clicker prefab/script were used in literally every kiosk I
 ever produced. I'll be adding more as I can - keyboard coming soon.
 
+## Installing
+
+Window > Package Management > Package Manager > Install package from git URL...
+
+URL: https://github.com/dmennenoh/KioskHelper.git
+
 ## Dependencies
 
 KioskHelper requires:
@@ -18,8 +24,6 @@ KioskHelper requires:
 
 DOTween must be installed separately.
 
-
-
+## Contact
 
 Suggestions or whatever: dmennenoh95@gmail.com
-
