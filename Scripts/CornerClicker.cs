@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 /*
  * Corner Clicker
@@ -42,11 +43,14 @@ namespace KioskHelper
         [Header("Corner Square Size")]
         [SerializeField] private float squareSize = 200;
 
+        [Header("Event")]
+        public UnityEvent cornerClickerActivated;//raised whenever theClicks match the Click Combination
+
         private int[] theClicks;//total number of clicks in each corner ul,ur,lr,ll  
 
         private float lastClickTime;//for measuring elapsed time between clicks
 
-        public event Action cornerClickerActivated;//raised whenever theClicks match the Click Combination
+       
 
 
 

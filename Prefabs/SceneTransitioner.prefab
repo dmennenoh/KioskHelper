@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 4224842534625118882}
   - component: {fileID: 6542862264049528600}
   - component: {fileID: 8166133017114600868}
-  - component: {fileID: 3787956545606790605}
   - component: {fileID: 5425220810970862621}
   - component: {fileID: 6477298369155518008}
   m_Layer: 5
@@ -107,19 +106,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &3787956545606790605
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1251837597928877895}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a718708b9df3ecd47a7b32069b2d299d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SceneController
-  sceneTransitionController: {fileID: 5425220810970862621}
 --- !u!114 &5425220810970862621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,6 +135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 579bd0ff16755eb49b87c031010c66d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PersistObject
+  instance: {fileID: 6477298369155518008}
 --- !u!1 &1408188093539489905
 GameObject:
   m_ObjectHideFlags: 0
