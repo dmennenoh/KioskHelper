@@ -20,9 +20,7 @@ KioskHelper requires:
 - TextMeshPro
 - Unity UI
 - Input System
-- DOTween (standard version or Pro)
-
-DOTween must be installed separately.
+- DOTween - https://assetstore.unity.com/packages/tools/animation/dotween-hotween-v2-27676
 
 ## Contact
 

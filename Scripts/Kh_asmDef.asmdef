@@ -2,9 +2,9 @@
     "name": "Kh_asmDef",
     "rootNamespace": "",
     "references": [
-        "GUID:6055be8ebefd69e48b49212b09b47b2f",
-        "GUID:75469ad4d38634e559750d17036d5f7c",
-        "GUID:64937acde88d64542b4cb3bfff782845"
+        "Unity.TextMeshPro",
+        "Unity.InputSystem",
+        "DOTween.Modules"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
