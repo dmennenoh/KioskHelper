@@ -17,6 +17,8 @@ KioskHelper requires:
 
 ## Installing
 
+Install through the Unity Package Manager
+
 Window > Package Management > Package Manager > Install package from git URL...
 
 URL: https://github.com/dmennenoh/KioskHelper.git
