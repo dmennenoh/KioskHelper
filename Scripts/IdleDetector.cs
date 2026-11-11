@@ -47,7 +47,7 @@ namespace KioskHelper
                 Reset();
                 return;
             }
-
+            //activity not detected
             float elapsed = Time.unscaledTime - lastActivityTime;
 
             //Warning threshold

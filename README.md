@@ -63,12 +63,13 @@ Suggestions or whatever: dmennenoh95@gmail.com
 3. If you'll be counting down and want to listen for `timerComplete`, use the Inspector to invoke a function in your code.
 
 **Public Methods:**
-SetTimer(numSeconds = 0)    Call this first, in order to set the timer.
-StartTimer()                Starts the timer counting up
-StartCountdown()            Starts the timer counting down to zero
-PauseTimer()                Pauses/Stops the timer
-ResumeTimer()               Resumes counting
-ResetTimer()                Resets the timer. If counting down the timer is set to the initial starting time, otherwise it's set to zero.
+
+- `SetTimer(numSeconds = 0)`    Call this first, in order to set the timer.
+- `StartTimer()`                Starts the timer counting up
+- `StartCountdown()`            Starts the timer counting down to zero
+- `PauseTimer()`                Pauses/Stops the timer
+- `ResumeTimer()`               Resumes counting
+- `ResetTimer()`               Resets the timer. If counting down the timer is set to the initial starting time, otherwise it's set to zero.
 
 
 ## Components - Scripts
@@ -79,7 +80,15 @@ ResetTimer()                Resets the timer. If counting down the timer is set 
 
 ### Idle Detector
 
-**Description:** 
+**Description:** Use Idle Detector to monitor user activity - ie so you know when someone walks away. If no interaction has happened for a set time period, an `onIdle` event will be raised. You can also issue a `onWarning` n seconds before `onIdle` is fired, in order to present the user with something like a 'Are you still there?' dialog box. Finally, once `onIdle` has fired an `onActivity` event will be fired once interaction resumes. You can use this to stop a screen saver, etc.
+
+**Setup:**
+1. Add Idle Detector to a GameObject.
+2. In the Inspector set the Idle time and Warning time. Warning time is the number of seconds before idle time.
+3. Invoke events in your code that will be called when `onWarning`, `onIdle` or `onActivity` are raised.
+
+**Public Methods**
+- `Reset()` - Resets the activity time and flags.
 
 ### Scene Loader
 
@@ -87,15 +96,14 @@ ResetTimer()                Resets the timer. If counting down the timer is set 
 
 **Setup:**
 1. Add SceneLoader to a GameObject.
-2. Call LoadNewScene() with the target scene name.
-3. Use ActivateScene() when you're ready to activate the scene.
+2. Call `LoadNewScene()` - with the target scene name.
+3. Use `ActivateScene()` - when you're ready to activate the scene.
 
 **Public Methods:**
-LoadNewScene()	    Begins asynchronous scene loading.
-ActivateScene()	    Allows the loaded scene to activate.
+- `LoadNewScene()` - Begins asynchronous scene loading.
+- `ActivateScene()` - Allows the loaded scene to activate.
 
-**Properties:**
-Property	Description
-IsLoading	Indicates whether a scene is currently loading.
-Progress	Loading progress from 0 to 1.
+**Public Properties:**
+- `IsLoading` - Indicates whether a scene is currently loading.
+- `Progress` - Normalized loading progress from 0 to 1.
 
