@@ -123,7 +123,7 @@ Suggestions or whatever: dmennenoh95@gmail.com
 **Description:** Super simple keyboard listener that allows a BA (Brand Ambassador) or other person manning the kiosk, to use the keyboard for simple control. Press F1 to toggle the mouse cursor. Press Esc to exit the application. 
 
 **Setup:**
-1. Simply drag onto any gameObject. 
+1. Simply drag onto any GameObject. 
 2. Set hide cursor initially to false if you want to initially see the cursor. Hidden by default.
 
 ## Timer
