@@ -12,19 +12,19 @@ namespace KioskHelper
 {
     public class PersistObject : MonoBehaviour
     {
-        public PersistObject instance;
+        public static PersistObject Instance { get; private set; }
 
         private void Awake()
         {
-            //If instance already exists and it's not this one, destroy the duplicate
-            if (instance != null && instance != this)
+            //If an instance already exists, destroy the duplicate
+            if (Instance != null && Instance != this)
             {
                 Destroy(gameObject);
                 return;
             }
 
-            //Set this object as the definitive instance and persist it
-            instance = this;
+            //set this as the definitive instance and persist it
+            Instance = this;
             DontDestroyOnLoad(gameObject);
         }
     }

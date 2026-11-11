@@ -13,12 +13,16 @@ namespace KioskHelper
 {
     public class StandardControls : MonoBehaviour
     {
+        [SerializeField] private bool hideCursorInitially = true;
         private bool isCursorHidden;
 
         private void Awake()
         {
-            isCursorHidden = true;
-            HideCursor();
+            if(hideCursorInitially)
+            {
+                isCursorHidden = true;
+                HideCursor();
+            }            
         }
 
         private void Update()

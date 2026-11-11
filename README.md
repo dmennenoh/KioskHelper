@@ -90,6 +90,13 @@ Suggestions or whatever: dmennenoh95@gmail.com
 **Public Methods**
 - `Reset()` - Resets the activity time and flags.
 
+### Persist Object
+
+**Description:** Uses `DontDestroyOnLoad()` in order to keep an object, and any children, alive between scene changes. Uses the standard singleton pattern in order to avoid making duplicates if the orignal scene is returned to.
+
+**Setup:**
+1. Add PersistObject to the GameObject you want to keep alive
+
 ### Scene Loader
 
 **Description:**  Loads Unity scenes asynchronously and optionally waits for an external signal before activating the new scene.
@@ -107,3 +114,18 @@ Suggestions or whatever: dmennenoh95@gmail.com
 - `IsLoading` - Indicates whether a scene is currently loading.
 - `Progress` - Normalized loading progress from 0 to 1.
 
+## Scene Transition Controller
+
+**Description:** This is the controller script for the SceneTransitioner prefab. You shouldn't need to use this on its own.
+
+## Standard Controls
+
+**Description:** Super simple keyboard listener that allows a BA (Brand Ambassador) or other person manning the kiosk, to use the keyboard for simple control. Press F1 to toggle the mouse cursor. Press Esc to exit the application. 
+
+**Setup:**
+1. Simply drag onto any gameObject. 
+2. Set hide cursor initially to false if you want to initially see the cursor. Hidden by default.
+
+## Timer
+
+**Description:** This is the timer script attached to the Timer prefab.
