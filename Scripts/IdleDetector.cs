@@ -9,7 +9,7 @@ using UnityEngine.Events;
  * raises onWarning prior to onIdle which can be used to show a 'are you still there?' type dialog
  * onActivity fires _after_ idle has fired to allow closing a screen saver, etc. when someone begins interacting again
  * 
- * Uses both Unity events for easy hookup in the Inspector as well as standard C# events if you'd rather listen with code
+ * Uses Unity events for easy hookup in the Inspector
  */
 namespace KioskHelper
 {
@@ -22,12 +22,7 @@ namespace KioskHelper
         [Header("Events")]
         public UnityEvent onWarning;//fired warningTime seconds before onIdle is fired - allows popping a dialog like 'are you still there?'
         public UnityEvent onIdle;//fired when the idleTime is reached with no interaction
-        public UnityEvent onActivity;//allows you to dismiss the screensaver or return to the interactive experience
-
-        //C# events - same events as above
-        public event Action OnWarning;
-        public event Action OnIdle;
-        public event Action OnActivity;
+        public UnityEvent onActivity;//allows you to dismiss the screensaver or return to the interactive experience              
 
         private float lastActivityTime;
         private bool isIdle;
@@ -48,7 +43,6 @@ namespace KioskHelper
                 if (isIdle)
                 {
                     onActivity?.Invoke();
-                    OnActivity?.Invoke();
                 }
                 Reset();
                 return;
@@ -61,7 +55,6 @@ namespace KioskHelper
             {
                 warningTriggered = true;
                 onWarning?.Invoke();
-                OnWarning?.Invoke();
             }
 
             //Idle threshold
@@ -69,7 +62,6 @@ namespace KioskHelper
             {
                 isIdle = true;
                 onIdle?.Invoke();
-                OnIdle?.Invoke();
             }
         }
 

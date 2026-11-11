@@ -44,7 +44,7 @@ namespace KioskHelper
         [SerializeField] private float squareSize = 200;
 
         [Header("Event")]
-        public UnityEvent cornerClickerActivated;//raised whenever theClicks match the Click Combination
+        [SerializeField] private UnityEvent cornerClickerActivated;//raised whenever theClicks match the Click Combination
 
         private int[] theClicks;//total number of clicks in each corner ul,ur,lr,ll  
 

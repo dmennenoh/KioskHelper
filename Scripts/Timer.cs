@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System;
+using UnityEngine.Events;
 
 /**
  * Timer
@@ -18,6 +19,10 @@ namespace KioskHelper
     {
         [SerializeField] private TMP_Text timerText;
 
+        //If both of these are false then just minutes and seconds will be displayed
+        [SerializeField] private bool displayHundreths = false;//show hundreths
+        [SerializeField] private bool displayTenths = true;//show tenths instead of hundreths
+
         private float elapsedTime;//current timer time, in seconds. Call SetTimer(seconds) to initialize
         private bool isRunning;//true if the timer is running, call PauseTimer() or StopTimer() to 
         private bool isCountingUp;//true if StartTimer() is called, false if StartCountdown() is called
@@ -26,7 +31,7 @@ namespace KioskHelper
         public float ElapsedTime => elapsedTime;
         public bool IsRunning => isRunning;
 
-        public event Action OnTimerComplete;//event is raised if counting down and the timer reaches 0
+        public UnityEvent timerComplete;//event is raised if counting down and the timer reaches 0
 
 
         void Update()
@@ -45,7 +50,7 @@ namespace KioskHelper
                 {
                     elapsedTime = 0;
                     isRunning = false;
-                    OnTimerComplete?.Invoke();
+                    timerComplete?.Invoke();
                 }
             }
             UpdateDisplay();
@@ -106,8 +111,25 @@ namespace KioskHelper
             int minutes = Mathf.FloorToInt(elapsedTime / 60f);
             int seconds = Mathf.FloorToInt(elapsedTime % 60f);
             int tenths = Mathf.FloorToInt((elapsedTime * 10f) % 10f);
+            int hundredths = Mathf.FloorToInt((elapsedTime * 100f) % 100f);
 
-            timerText.text = $"{minutes:00}:{seconds:00}.{tenths}";
+            if (displayHundreths)
+            {
+                timerText.text = $"{minutes:00}:{seconds:00}.{hundredths:00}";
+            }
+            else 
+            {
+                if (displayTenths)
+                {
+                    timerText.text = $"{minutes:00}:{seconds:00}.{tenths:0}";
+                }
+                else
+                {
+                    timerText.text = $"{minutes:00}:{seconds:00}";
+                }
+                
+            }
+            
         }
 
     }//class

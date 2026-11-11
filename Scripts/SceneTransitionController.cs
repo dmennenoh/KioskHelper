@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using DG.Tweening;
+using UnityEngine.Events;
 
 /*
  * Scene Transition Controller
@@ -23,8 +24,8 @@ namespace KioskHelper
         private RectTransform transitionCanvas;
         private float canvasWidth;
 
-        public event Action transitionHidden;
-        public event Action transitionShowing;
+        [SerializeField] private UnityEvent transitionHidden;
+        [SerializeField] private UnityEvent transitionShowing;
 
 
 
