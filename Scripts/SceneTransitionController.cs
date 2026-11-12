@@ -14,15 +14,18 @@ namespace KioskHelper
 {
     public class SceneTransitionController : MonoBehaviour
     {
+        [SerializeField] private bool horizontalTransition = true;//vertical if false
+
         [SerializeField] private Sprite transitionImage;
 
         [SerializeField] private RectTransform leftMask;
         [SerializeField] private Image leftImage;
         [SerializeField] private RectTransform rightMask;
-        [SerializeField] private Image rightImage;
+        [SerializeField] private Image rightImage;        
 
         private RectTransform transitionCanvas;
         private float canvasWidth;
+        private float canvasHeight;
 
         [SerializeField] private UnityEvent transitionHidden;
         [SerializeField] private UnityEvent transitionShowing;
@@ -42,18 +45,19 @@ namespace KioskHelper
         {
             transitionCanvas = gameObject.GetComponent<RectTransform>();
             canvasWidth = transitionCanvas.rect.width;
+            canvasHeight = transitionCanvas.rect.height/2;
 
             leftImage.sprite = transitionImage;
             rightImage.sprite = transitionImage;
 
-            Hide(true);
+            Hide(false);
         }
 
 
         public void Show()
         {
-            leftMask.DOAnchorPos(Vector2.zero, 0.5f).OnComplete(() => transitionShowing?.Invoke());
-            rightMask.DOAnchorPos(Vector2.zero, 0.5f);
+            leftMask.DOAnchorPos(Vector2.zero, 0.5f).SetEase(Ease.OutQuint).OnComplete(() => transitionShowing?.Invoke());
+            rightMask.DOAnchorPos(Vector2.zero, 0.5f).SetEase(Ease.OutQuint);
         }
 
 
@@ -61,14 +65,31 @@ namespace KioskHelper
         {
             if (animate)
             {
-                leftMask.DOAnchorPos(new Vector2(-canvasWidth, 0), 0.5f).OnComplete(() => transitionHidden?.Invoke());
-                rightMask.DOAnchorPos(new Vector2(canvasWidth, 0), 0.5f);
+                if(horizontalTransition)
+                {
+                    leftMask.DOAnchorPos(new Vector2(-canvasWidth, 0), 0.5f).SetEase(Ease.InQuint).OnComplete(() => transitionHidden?.Invoke());
+                    rightMask.DOAnchorPos(new Vector2(canvasWidth, 0), 0.5f).SetEase(Ease.InQuint);
+                }
+                else
+                {
+                    leftMask.DOAnchorPos(new Vector2(0, canvasHeight), 0.5f).SetEase(Ease.InQuint).OnComplete(() => transitionHidden?.Invoke());
+                    rightMask.DOAnchorPos(new Vector2(0, -canvasHeight), 0.5f).SetEase(Ease.InQuint);
+                }
+                
             }
             else
             {
-                //just set the position with no animation            
-                leftMask.anchoredPosition = new Vector2(-canvasWidth, 0);
-                rightMask.anchoredPosition = new Vector2(canvasWidth, 0);
+                //just set the position with no animation   
+                if(horizontalTransition)
+                {
+                    leftMask.anchoredPosition = new Vector2(-canvasWidth, 0);
+                    rightMask.anchoredPosition = new Vector2(canvasWidth, 0);
+                }
+                else
+                {
+                    leftMask.anchoredPosition = new Vector2(0, canvasHeight);
+                    rightMask.anchoredPosition = new Vector2(0, -canvasHeight);
+                }                
                 transitionHidden?.Invoke();
             }
         }

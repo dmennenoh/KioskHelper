@@ -35,7 +35,7 @@ Suggestions or whatever: dmennenoh95@gmail.com
 
 ### Corner Clicker
 
-**Description:**  Old Reliable. Many times this was used to simply shutdown an app after four taps in the upper right corner. But you can require any number of taps in any corner, and use multiple corners. For instance two taps lower left, followed by two taps upper right could open a settings dialog. 
+**Description:**  Old Reliable. Many times this was used to simply shutdown an app after four taps in the upper right corner. But you can require any number of taps in any corner, and use multiple corners. For instance two taps lower left, followed by two taps upper right could open a settings dialog. There is no set corner order - if UL and LR are both set to 2, it doesn't matter which corner you start in.
 
 **Setup:**
 1. Drag the CornerClicker prefab into your scene.
@@ -43,17 +43,21 @@ Suggestions or whatever: dmennenoh95@gmail.com
 3. Set the corner square size if you want, but the default (200) is pretty good for both 2K and 4K.
 4. Use the Inspector to invoke a function in your code when the `cornerClickerActivated` event is raised.
 
-**Note:** If you want to see the corners for scaling, etc. just select the four children in the prefab and set the Image components alpha to something other than zero.
+**Note:** If you want to see the corners for scaling, etc. just select the four children in the prefab and set the Image component's alpha to something other than zero.
 
 ### Scene Transitioner
 
-**Description:** As of now (Nov 26) this is just a simple diagonal wipe. Eventually, it'll be a more modular system probably using scriptable objects as transition modules. Add a SceneTransitioner prefab to *each* scene you want to transition in/out of.
+**Description:** A horizontal or vertical wipe transition. There are four different sets of masks you can use to modify the transition. These are located in the KioskHelper\Textures folder. Just replace the default maskL_30 and maskR_30 images within the maskL and maskR objects in the prefab. Be sure to maskL images in the maskL object and maskR images for the maskR object.
 
 **Setup:**
 1. Drag the prefab into a scene.
+2. For a vertical transition uncheck Horizontal Transition in the Inspector.
 2. Drag an image into the Transition Image parameter in the Inspector.
-3. Call Show() and Hide() as necessary, on the SceneTransitionController component.
-4. Optionally use the Inspector to invoke functions in your code when the `transitionHidden` and `transitionShowing` events are raised. 
+3. Optionally change the mask images as described above.
+4. Call Show() and Hide() as necessary, on the SceneTransitionController component.
+5. Optionally use the Inspector to invoke functions in your code when the `transitionHidden` and `transitionShowing` events are raised. 
+
+**Note:** Add a SceneTransitioner prefab to *each* scene you want to transition in/out of.
 
 ### Timer
 
