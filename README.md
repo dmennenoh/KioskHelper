@@ -2,7 +2,7 @@
 
 A WIP collection of utility scripts for Unity kiosk applications.
 
-I decided to publish a bunch of stuff I've used over the years to help in building kiosk type games and applications. Kind of kiosk boilerplate. Some of these like the Corner Clicker prefab/script were used in literally every kiosk I ever produced. I'll be adding more as I can - configurable keyboard coming soon.
+I decided to publish a bunch of stuff I've used over the years to help in building kiosk type games and applications. Kind of kiosk boilerplate. Some of these like the Corner Clicker prefab/script and Profanity Filter were used in literally every kiosk I ever produced. I'll be adding more as I can - configurable keyboard coming soon.
 
 **Note:** If you happen to make updates, fixes, etc. Please open a PR so I can have a look and probably incorporate what you've done.
 
