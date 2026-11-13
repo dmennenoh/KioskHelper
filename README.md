@@ -4,6 +4,8 @@ A WIP collection of utility scripts for Unity kiosk applications.
 
 I decided to publish a bunch of stuff I've used over the years to help in building kiosk type games and applications. Kind of kiosk boilerplate. Some of these like the Corner Clicker prefab/script were used in literally every kiosk I ever produced. I'll be adding more as I can - configurable keyboard coming soon.
 
+**Note:** If you happen to make updates, fixes, etc. Please open a PR so I can have a look and probably incorporate what you've done.
+
 
 ## Dependencies
 
@@ -124,11 +126,24 @@ Suggestions or whatever: dmennenoh95@gmail.com
 1. Simply drag onto any GameObject. 
 2. Set hide cursor initially to false if you want to initially see the cursor. Hidden by default.
 
-## Components - Scripts / Utility
+## Components - Scripts / Utilities
 
 ### Layout Group Visualizer
 
 **Description:** A gizmos utility script that allows you to visualize padding, spacing, and child boundaries of whatever layout group (horizontal, vertical, grid) that you attach it to. Executes in the Editor only.
+
+### Profanity Dictionary
+
+**Description:** A fairly comprehensive list of nearly 300 naughty words. This is used by the Profanity Filter class. Contains all the three letter swears we could come up with, in order to filter user initials.
+
+### Profanity Filter
+
+**Description:** Another one that was used on so many projects. Pretty much anytime you need to allow user input, it's a good idea to pass it through a profanity filter. 
+
+**Setup:**
+1. It's a static class so just add the `using KioskHelper;` to your usings.
+2. Call `ProfanityFilter.ContainsProfanity(stringToCheck)`
+3. True is returned if the input contains a bad word, otherwise false is returned.
 
 ## Components - Scripts / Prefabs
 

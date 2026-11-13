@@ -20,6 +20,8 @@ public class LayoutGroupVisualizer : MonoBehaviour
     public Color paddingColor = new Color(0f, 0.5f, 1f, 0.2f);//Blue
     public Color childBoundsColor = new Color(1f, 0.8f, 0f, 0.6f);//Yellow
 
+
+    //Draws in scene view only when the layout group is selected
     private void OnDrawGizmosSelected()
     {
         LayoutGroup layoutGroup = GetComponent<LayoutGroup>();
