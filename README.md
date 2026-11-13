@@ -80,10 +80,6 @@ Suggestions or whatever: dmennenoh95@gmail.com
 
 ## Components - Scripts
 
-### Corner Clicker 
-
-**Description:** This is the script attached to the Corner Clicker prefab. Unless you want to, you shouldn't need to use this on it's own.
-
 ### Idle Detector
 
 **Description:** Use Idle Detector to monitor user activity - ie so you know when someone walks away. If no interaction has happened for a set time period, an `onIdle` event will be raised. You can also issue a `onWarning` n seconds before `onIdle` is fired, in order to present the user with something like a 'Are you still there?' dialog box. Finally, once `onIdle` has fired an `onActivity` event will be fired once interaction resumes. You can use this to stop a screen saver, etc.
@@ -120,11 +116,7 @@ Suggestions or whatever: dmennenoh95@gmail.com
 - `IsLoading` - Indicates whether a scene is currently loading.
 - `Progress` - Normalized loading progress from 0 to 1.
 
-## Scene Transition Controller
-
-**Description:** This is the controller script for the SceneTransitioner prefab. You shouldn't need to use this on its own.
-
-## Standard Controls
+### Standard Controls
 
 **Description:** Super simple keyboard listener that allows a BA (Brand Ambassador) or other person manning the kiosk, to use the keyboard for simple control. Press F1 to toggle the mouse cursor. Press Esc to exit the application. 
 
@@ -132,6 +124,14 @@ Suggestions or whatever: dmennenoh95@gmail.com
 1. Simply drag onto any GameObject. 
 2. Set hide cursor initially to false if you want to initially see the cursor. Hidden by default.
 
-## Timer
+## Components - Scripts / Utility
 
-**Description:** This is the timer script attached to the Timer prefab.
+### Layout Group Visualizer
+
+**Description:** A gizmos utility script that allows you to visualize padding, spacing, and child boundaries of whatever layout group (horizontal, vertical, grid) that you attach it to. Executes in the Editor only.
+
+## Components - Scripts / Prefabs
+
+1. `Scene Transition Controller` - This is the controller script for the SceneTransitioner prefab.
+2. `Corner Clicker` - This is the script attached to the Corner Clicker prefab.
+3. `Timer` - This is the timer script attached to the Timer prefab.
