@@ -164,7 +164,7 @@ Suggestions or whatever: dmennenoh95@gmail.com
 **Setup:**
 1. It's a static class so just add the `using KioskHelper;` to your usings.
 2. Call `ProfanityFilter.ContainsProfanity(stringToCheck)`
-3. True is returned if the input contains a bad word, otherwise false is returned.
+3. Returns a bool - true if profanity was found.
 
 **Note:** If you find any false positives or negatives please let me know - dmennenoh95@gmail.com
 
