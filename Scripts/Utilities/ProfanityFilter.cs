@@ -12,7 +12,8 @@ using System.Text.RegularExpressions;
  * 2. punctuation is removed while preserving spaces and tested again
  * 3. leet speak substitution is done and tested again
  * 4. trailing s are removed for plural handling
- * 5. spaces are removed and tested one final time * 
+ * 5. spaces are removed and tested one final time
+ *  
  */
 
 
@@ -36,6 +37,7 @@ namespace KioskHelper
             { '!', 'i' }
         };
 
+        //Returns true if the input contains a word in the ProfanityDictionary.Words list
         public static bool ContainsProfanity(string input)
         {
             if (string.IsNullOrWhiteSpace(input)) return false;
@@ -61,15 +63,36 @@ namespace KioskHelper
             //Fifth check: Remove spaces to catch separated characters
             normalized = normalized.Replace(" ", "");
 
-            return CheckWords(normalized);
+            if (CheckWords(normalized)) return true;
+
+            //If it's gotten this far check for wildcard obfuscation (*)
+            //make sure the original input doesn't contain *'s (like pu**y) and if it does do another test
+            if(input.Contains('*'))
+            {
+                //first remove punctuation - removes everything except *'s
+                normalized = Regex.Replace(input, @"[^a-zA-Z0-9\s*]", "");
+                string pattern = "^" + Regex.Escape(normalized).Replace(@"\*", "[a-z]+") + "$";
+
+                foreach (string word in ProfanityDictionary.Words)
+                {
+                    if (Regex.IsMatch(word, pattern, RegexOptions.IgnoreCase))
+                        return true;
+                }
+
+                return false;
+            }
+            else
+            {
+                return false;
+            }
         }
 
 
         public static string ReplaceChars(string input, Dictionary<char, char> map)
         {
             if (string.IsNullOrEmpty(input)) return input;
-
-            //Pre-allocate exact capacity for optimal performance
+            
+            //preallocate the length
             var sb = new StringBuilder(input.Length);
 
             foreach (char c in input)

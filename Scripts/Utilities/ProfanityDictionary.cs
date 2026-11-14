@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 /*
  * Profanity Dictionary is implemented as a HashSet in order to provide extremely fast O(1) lookups.
- * Checking if an item exists with Contains() is much faster than searching a List<T>
+ * 
  * Even for 100 items the HashSet is around 5 times faster then an Array
  * At 10,000 items the HashSet is around 400 times faster.
  * At 1,000,000 items the HashSet is around 20,000 times faster.
@@ -19,7 +19,7 @@ namespace KioskHelper
             "anal",
             "anus",
             "arse",
-            "ass",
+            "ass",            
             "azz",
             "assbite",
             "assclown",
@@ -72,6 +72,7 @@ namespace KioskHelper
             "clam",
             "clit",
             "clitty",
+            "clitlicker",
             "clusterfuck",
             "cock",
             "cockburger",
@@ -86,7 +87,10 @@ namespace KioskHelper
             "crap",
             "crappy",
             "creampie",
+            "cuck",
+            "cuckold",
             "cum",
+            "cumdump",
             "cumdumpster",
             "cumjockey",
             "cumpig",
@@ -150,10 +154,14 @@ namespace KioskHelper
             "fuker",
             "fuking",
             "fudgepacker",
+            "gape",
+            "gaped",
+            "gaping",
             "gayboy",
             "gayfuck",
             "gaylord",
             "gaytard",
+            "goatse",
             "goddamn",
             "gooch",
             "gook",
@@ -224,13 +232,13 @@ namespace KioskHelper
             "pussy",
             "pussies",
             "queef",
+            "rape",
             "retard",
             "rimjob",
             "sandnigger",
             "schlong",
             "scrote",
             "scumbag",
-            "screwup",
             "sexcunt",
             "sexpussy",            
             "shit",
@@ -256,6 +264,7 @@ namespace KioskHelper
             "splooge",
             "spook",
             "tard",
+            "teabag",
             "tit",
             "tits",
             "titty",
@@ -273,7 +282,7 @@ namespace KioskHelper
             "vjj",
             "wanker",
             "wetback",
-            "whore",
+            "whore"
         };
     }
 }
