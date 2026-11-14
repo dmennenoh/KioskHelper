@@ -134,11 +134,11 @@ Suggestions or whatever: dmennenoh95@gmail.com
 
 ### Profanity Dictionary
 
-**Description:** A fairly comprehensive list of nearly 300 naughty words. This is used by the Profanity Filter class. Contains all the three letter swears we could come up with, in order to filter user initials.
+**Description:** A fairly comprehensive list of nearly 300 naughty words. This is used by the Profanity Filter class. Contains all the three letter swears we could come up with, in order to also filter user initials.
 
 ### Profanity Filter
 
-**Description:** Another one that was used on so many projects. Pretty much anytime you need to allow user input, it's a good idea to pass it through a profanity filter. 
+**Description:** Another one that was used on so many projects. Pretty much anytime you need to allow user input, it's a good idea to pass it through a profanity filter. This one uses a five stage approach and does a pretty good job of catching obscure swears like f.u.c.k or 5.h.1.t, or pu55y, etc. Also uses a HashSet for the swear list to make for extremely fast lookups.
 
 **Setup:**
 1. It's a static class so just add the `using KioskHelper;` to your usings.
