@@ -42,49 +42,76 @@ namespace KioskHelper
         {
             if (string.IsNullOrWhiteSpace(input)) return false;
 
-            //First check: Original input
-            if (CheckWords(input)) return true;
+            //initial test 
+            string[] chars = Regex.Split(input.Trim(), @"\s+");
 
-            //Second check: Remove punctuation and symbols, preserving spaces
-            string normalized = Regex.Replace(input, @"[^a-zA-Z0-9\s]", " ");
-
-            if (CheckWords(normalized)) return true;
-
-            //Third check: Leetspeak substitution
-            normalized = ReplaceChars(normalized, leetMap);
-
-            if (CheckWords(normalized)) return true;
-
-            //Fourth check: Remove trailing 's' from words
-            normalized = Regex.Replace(normalized, @"\b(\w+)s\b", "$1");
-
-            if (CheckWords(normalized)) return true;
-
-            //Fifth check: Remove spaces to catch separated characters
-            normalized = normalized.Replace(" ", "");
-
-            if (CheckWords(normalized)) return true;
-
-            //If it's gotten this far check for wildcard obfuscation (*)
-            //make sure the original input doesn't contain *'s (like pu**y) and if it does do another test
-            if(input.Contains('*'))
+            for (int i = 0; i < chars.Length; i++)
             {
-                //first remove punctuation - removes everything except *'s
-                normalized = Regex.Replace(input, @"[^a-zA-Z0-9\s*]", "");
-                string pattern = "^" + Regex.Escape(normalized).Replace(@"\*", "[a-z]+") + "$";
+                string combined = "";
 
-                foreach (string word in ProfanityDictionary.Words)
+                for (int j = i; j < chars.Length && chars[j].Length == 1; j++)
                 {
-                    if (Regex.IsMatch(word, pattern, RegexOptions.IgnoreCase))
-                        return true;
+                    combined += chars[j];
+                    if (CheckToken(combined)) return true;
                 }
+            }
 
-                return false;
-            }
-            else
+            //Split input into individual words
+            string[] words = Regex.Split(input, @"\s+");
+
+            foreach (string word in words)
             {
-                return false;
+                if (CheckToken(word)) return true;
             }
+
+            return false;
+        }
+
+        private static bool CheckToken(string input)
+        {
+            //Remove leading/trailing punctuation
+            //Preserve * for wildcard checking
+            string word = Regex.Replace(input, @"^[^\w*]+|[^\w*]+$", "");
+
+            if (string.IsNullOrEmpty(word)) return false;
+
+            //Check original word
+            if (CheckWords(word)) return true;
+
+            //Apply leetspeak substitutions
+            string leet = ReplaceChars(word, leetMap);
+
+            if (CheckWords(leet)) return true;
+
+            //Remove internal punctuation, preserving *
+            string normalized = Regex.Replace(leet, @"[^a-zA-Z0-9*]", "");
+
+            if (CheckWords(normalized)) return true;
+                       
+
+            //Remove trailing s
+            if (normalized.EndsWith("s", StringComparison.OrdinalIgnoreCase))
+            {
+                string singular = normalized.Substring(0, normalized.Length - 1);
+                if (CheckWords(singular)) return true;
+            }
+
+            //embedded swears check - and checks against exceptions list
+            if (CheckContainsWords(normalized)) return true;
+
+            //Finally do wildcard checking
+            if (normalized.Contains('*'))
+            {
+                string pattern = "^" + Regex.Escape(normalized).Replace(@"\*", "[a-z]") + "$";
+
+                foreach (string badWord in ProfanityDictionary.Words)
+                {
+                    if (Regex.IsMatch(badWord, pattern, RegexOptions.IgnoreCase)) return true;
+                }
+            }
+
+            //No swear!
+            return false;
         }
 
 
@@ -107,11 +134,19 @@ namespace KioskHelper
 
         private static bool CheckWords(string input)
         {
-            string[] words = input.Split(new[] { ' ', '\t', '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
+            return ProfanityDictionary.Words.Contains(input);
+        }
 
-            foreach (string inputWord in words)
+
+        //checks for embedded swears
+        private static bool CheckContainsWords(string input)
+        {
+            if (ProfanityDictionary.Exceptions.Contains(input)) return false;
+
+            foreach (string word in ProfanityDictionary.Words)
             {
-                if (ProfanityDictionary.Words.Contains(inputWord)) return true;
+                if (input.Contains(word, StringComparison.OrdinalIgnoreCase))
+                    return true;
             }
 
             return false;
