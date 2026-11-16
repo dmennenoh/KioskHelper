@@ -147,6 +147,7 @@ Suggestions or whatever: dmennenoh95@gmail.com
 1. Simply drag onto any GameObject. 
 2. Set hide cursor initially to false if you want to initially see the cursor. Hidden by default.
 
+
 ## Components - Scripts / Utilities
 
 ### Layout Group Visualizer
@@ -159,7 +160,7 @@ Suggestions or whatever: dmennenoh95@gmail.com
 
 ### Profanity Filter
 
-**Description:** Another one that was used on so many projects. Pretty much anytime you need to allow user input, it's a good idea to pass it through a profanity filter. This one uses a five to six stage approach and does a pretty good job of catching obscure swears like f.u.c.k or 5.h.1.t, or pu55y, pu**y, etc. Also uses a HashSet for the swear list to make for extremely fast lookups. Starts with a five stage approach and if the input is still false a check for wildcards (*) is done. If there are any a regex pattern is created and checked against the dictionary.
+**Description:** Detects profanity and attempts to catch common methods of bypassing word filters, including leetspeak, inserted punctuation, whitespace, and wildcard substitutions. This is Another one that was used on so many projects. Pretty much anytime you need to allow user input, it's not a bad idea to pass it through a profanity filter. 
 
 **Setup:**
 1. It's a static class so just add the `using KioskHelper;` to your usings.
@@ -167,6 +168,14 @@ Suggestions or whatever: dmennenoh95@gmail.com
 3. Returns a bool - true if profanity was found.
 
 **Note:** If you find any false positives or negatives please let me know - dmennenoh95@gmail.com
+
+### Test Profanity Filter
+
+**Description:** Simple script tests the filter by running a bunch of known words and phrases through it. 
+
+**Setup:**
+1. Just drag onto a gameObject and press play. Check Console window for the output.
+
 
 ## Components - Scripts / Prefabs
 

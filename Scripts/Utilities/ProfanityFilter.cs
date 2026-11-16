@@ -3,18 +3,50 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 
+
 /*
  * Profanity Filter
- * 
- * Checks an input against a profanity dictionary. Returns true if profanity was found.
- * Does a five stage approach
- * 1. original input is tested
- * 2. punctuation is removed while preserving spaces and tested again
- * 3. leet speak substitution is done and tested again
- * 4. trailing s are removed for plural handling
- * 5. spaces are removed and tested one final time
- *  
+ *
+ * Detects profanity and attempts to catch common methods of bypassing
+ * word filters, including leetspeak, inserted punctuation, whitespace,
+ * and wildcard substitutions.
+ *
+ * Detection process:
+ *
+ * 1. Multi-token checking:
+ *    Combines consecutive short strings separated by whitespace to detect
+ *    attempts to disguise profanity by inserting spaces between characters
+ *    or groups of characters (e.g. "f u c k" or "fu ck").
+ *
+ * 2. Original word checking:
+ *    Checks the original word against the profanity dictionary.
+ *
+ * 3. Leetspeak substitution:
+ *    Replaces common character substitutions with their alphabetical
+ *    equivalents (e.g. "5" becomes "s", "1" becomes "i").
+ *
+ * 4. Punctuation normalization:
+ *    Removes internal punctuation while preserving asterisks for
+ *    subsequent wildcard checking.
+ *
+ * 5. Word variations:
+ *    Checks common plural variations by removing a trailing "s".
+ *
+ * 6. Embedded profanity:
+ *    Checks for profanity contained within larger words, while consulting
+ *    an exclusion list to help prevent innocent words from being flagged.
+ *    This is the famous Scunthorpe problem - see below.
+ *
+ * 7. Wildcard checking:
+ *    Treats asterisks as single-character wildcards to detect partially
+ *    obscured profanity (e.g. "pu**y" or "d*ck").
+ *    
+ *    Interesting note:  The name comes from Scunthorpe, an industrial town 
+ *    in North Lincolnshire, England. In April 1996, residents trying to sign 
+ *    up for AOL UK found their applications rejected because the town's 
+ *    name embeds an offensive four-letter word
  */
+
 
 
 namespace KioskHelper
@@ -37,26 +69,30 @@ namespace KioskHelper
             { '!', 'i' }
         };
 
+
         //Returns true if the input contains a word in the ProfanityDictionary.Words list
         public static bool ContainsProfanity(string input)
         {
             if (string.IsNullOrWhiteSpace(input)) return false;
 
-            //initial test 
+            //Initial test - removes whitespace and then iteratively tests the combined string
+            //flags words like 'f u c k m e' and 'fu ck'
             string[] chars = Regex.Split(input.Trim(), @"\s+");
 
             for (int i = 0; i < chars.Length; i++)
             {
                 string combined = "";
 
-                for (int j = i; j < chars.Length && chars[j].Length == 1; j++)
+                for (int j = i; j < chars.Length && chars[j].Length <= 3; j++)
                 {
                     combined += chars[j];
+                    if (combined.Length > 20) break;
                     if (CheckToken(combined)) return true;
                 }
             }
 
-            //Split input into individual words
+            //Now split original input into individual words delimited by whitespace (space, tab,line feed, etc.)
+            //and test each word individually.
             string[] words = Regex.Split(input, @"\s+");
 
             foreach (string word in words)
@@ -86,8 +122,7 @@ namespace KioskHelper
             //Remove internal punctuation, preserving *
             string normalized = Regex.Replace(leet, @"[^a-zA-Z0-9*]", "");
 
-            if (CheckWords(normalized)) return true;
-                       
+            if (CheckWords(normalized)) return true;                       
 
             //Remove trailing s
             if (normalized.EndsWith("s", StringComparison.OrdinalIgnoreCase))

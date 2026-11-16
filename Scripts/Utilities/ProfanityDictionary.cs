@@ -18,8 +18,6 @@ namespace KioskHelper
         {
             "anal",
             "anus",
-            "arse",          
-            "azz",
             "assbite",
             "assclown",
             "assface",
@@ -284,14 +282,10 @@ namespace KioskHelper
             "wetback",
             "whore"
         };
-
-        //The Scunthorpe problem is the unintentional blocking of emails, website URLs, search results, or forum posts 
-        //by automated filters because the text contains an innocent character sequence that resembles a profanity
-        //or taboo word
+       
         public static readonly HashSet<string> Exceptions = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
         {
-            "scunthorpe",
-            "glasscock",
+            "bitche",
             "cockatoo",
             "peacock",
             "dickens",
@@ -331,7 +325,8 @@ namespace KioskHelper
             "entity", 
             "essex", 
             "fukuoka", 
-            "fukushima", 
+            "fukushima",
+            "glasscock",
             "grape", 
             "gratitude", 
             "hancock", 
