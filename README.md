@@ -25,6 +25,7 @@ KioskHelper currently includes the following prefabs, scripts, and utilities:
 - **Layout Group Visualizer** - Editor gizmo utility for visualizing Unity layout groups.
 - **Profanity Filter** - Multi-stage input filtering with character substitution and obfuscation detection.
 - **Profanity Dictionary** - HashSet-based collection of nearly 300 words used by the profanity filter.
+- **Test Profanity Filter** - A bunch of swears and non-swears to test the filter.
 
 See below for detailed descriptions, setup instructions, and usage information for each component.
 
