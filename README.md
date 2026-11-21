@@ -10,6 +10,7 @@ KioskHelper currently includes the following prefabs, scripts, and utilities:
 
 ### Prefabs
 - **Corner Clicker** - Configurable multi-corner click detection for hidden settings menus, app shutdown, and other kiosk controls.
+- **Dialog Box** - Customizable modal dialog box.
 - **Scene Transitioner** - Reusable horizontal and vertical wipe transitions between scenes.
 - **Timer** - Configurable count-up and countdown timer with completion events.
 
@@ -20,6 +21,7 @@ KioskHelper currently includes the following prefabs, scripts, and utilities:
 - **Standard Controls** - Basic keyboard controls for toggling the mouse cursor and exiting the application.
 
 ### Utilities
+- **Dialog Data** - Scriptable object that allows creating different dialog box styles.
 - **Layout Group Visualizer** - Editor gizmo utility for visualizing Unity layout groups.
 - **Profanity Filter** - Multi-stage input filtering with character substitution and obfuscation detection.
 - **Profanity Dictionary** - HashSet-based collection of nearly 300 words used by the profanity filter.
@@ -57,7 +59,7 @@ Suggestions or whatever: dmennenoh95@gmail.com
 
 ### Corner Clicker
 
-**Description:**  Old Reliable. Many times this was used to simply shutdown an app after four taps in the upper right corner. But you can require any number of taps in any corner, and use multiple corners. For instance two taps lower left, followed by two taps upper right could open a settings dialog. There is no set corner order - if UL and LR are both set to 2, it doesn't matter which corner you start in.
+**Description:** Old Reliable. Many times this was used to simply shutdown an app after four taps in the upper right corner. But you can require any number of taps in any corner, and use multiple corners. For instance two taps lower left, followed by two taps upper right could open a settings dialog. There is no set corner order - if UL and LR are both set to 2, it doesn't matter which corner you start in.
 
 **Setup:**
 1. Drag the CornerClicker prefab into your scene.
@@ -66,6 +68,23 @@ Suggestions or whatever: dmennenoh95@gmail.com
 4. Use the Inspector to invoke a function in your code when the `cornerClickerActivated` event is raised.
 
 **Note:** If you want to see the corners for scaling, etc. just select the four children in the prefab and set the Image component's alpha to something other than zero.
+
+### Dialog Box
+
+**Description:** A simple, but flexible modal dialog box that's easy to customize using scriptable objects. Includes some common icons (error, info, question, success, warning) that you can use, or add your own.
+
+**Setup:**
+1. Drag the DialogBox prefab into a Canvas - this was built using 2K as a reference, so if you're reference resolution is 4K you may need to Alt-click the Stretch setting in Anchor Presets. This should land the dialog at center screen. Adjust as needed.
+2. Scale the DialogRoot if necessary. For a 4K canvas 1.75 in X and Y, works pretty well.
+3. Create a new instance of DialogData (KioskHelper > Scripts > Utilities) and give it an appropriate name for the dialog style - like dialogWarning, or dialogInfo
+4. Configure the settings for the new style/data asset.
+5. Pass an instance of the new asset into the DialogControllers Show() method - see below.
+
+**Public Methods:**
+
+- `Show(styleInstance, title, text, primaryButtonText, secondaryButtonText, callBackMethod)`    
+
+
 
 ### Scene Transitioner
 
@@ -149,6 +168,11 @@ Suggestions or whatever: dmennenoh95@gmail.com
 
 ## Components - Scripts / Utilities
 
+### Dialog Data
+
+**Description:** This is a scriptable object used for styling the dialog box prefab. Create an instance with Create New Asset > Kiosk Helper > Dialog Style 
+Give it an appropriate name and change the configuration values as needed. Pass these to the dialog box's Show() method to have different dialog styles. Within the KioskHelper \ Textures folder are various 50x50 dialog icons you can  use to get started.
+
 ### Layout Group Visualizer
 
 **Description:** A gizmos utility script that allows you to visualize padding, spacing, and child boundaries of whatever layout group (horizontal, vertical, grid) that you attach it to. Executes in the Editor only.
@@ -178,6 +202,7 @@ Suggestions or whatever: dmennenoh95@gmail.com
 
 ## Components - Scripts / Prefabs
 
-1. `Scene Transition Controller` - This is the controller script for the SceneTransitioner prefab.
-2. `Corner Clicker` - This is the script attached to the Corner Clicker prefab.
-3. `Timer` - This is the timer script attached to the Timer prefab.
+1. `Corner Clicker` - This is the script attached to the Corner Clicker prefab.
+2. `Dialog Controller` - This is the script attached to the DialogBox prefab.
+3. `Scene Transition Controller` - This is the controller script for the SceneTransitioner prefab.
+4. `Timer` - This is the timer script attached to the Timer prefab.

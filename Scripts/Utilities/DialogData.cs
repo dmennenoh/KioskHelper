@@ -24,6 +24,7 @@ namespace KioskHelper
 
         [Header("Background Overlay")]
         public bool closeOnBackgroundClick = false;
-        [Range(0f, 1f)      public float backgroundOverlayAlpha = .5f;
+        [Range(0f, 1f)]
+        public float backgroundOverlayAlpha = .5f;
     }
 }
