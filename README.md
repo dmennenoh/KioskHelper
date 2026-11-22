@@ -1,6 +1,6 @@
 # KioskHelper
 
-A WIP collection of utility scripts for building Unity kiosk applications. A kind of kiosk boilerplate. Some of what I'll be adding is pretty dated, so I'm rewriting it as I go. Latest added was the profanity filter. Next in will be a custom dialog box and then a custom on-screen keyboard with editor.
+A WIP collection of utility scripts for building Unity kiosk applications. A kind of kiosk boilerplate. Some of what I'll be adding is pretty dated, so I'm rewriting it as I go. Latest added was the Dialog Box. Next in will be a custom on-screen keyboard with editor.
 
 **Note:** If you happen to make updates, fixes, etc. Please open a PR so I can have a look and probably incorporate what you've done.
 
