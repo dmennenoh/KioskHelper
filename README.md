@@ -21,7 +21,7 @@ KioskHelper currently includes the following prefabs, scripts, and utilities:
 - **Standard Controls** - Basic keyboard controls for toggling the mouse cursor and exiting the application.
 
 ### Utilities
-- **Dialog Data** - Scriptable object that allows creating different dialog box styles.
+- **Dialog Style** - Scriptable object that allows creating different dialog box styles.
 - **Layout Group Visualizer** - Editor gizmo utility for visualizing Unity layout groups.
 - **Profanity Filter** - Multi-stage input filtering with character substitution and obfuscation detection.
 - **Profanity Dictionary** - HashSet-based collection of nearly 300 words used by the profanity filter.
@@ -57,6 +57,9 @@ Suggestions or whatever: dmennenoh95@gmail.com
 
 ## Components - Prefabs
 
+**NOTE:** To make Unity place a prefab at the coordinates saved inside its root Transform when you drag it into the Hierarchy, enable "Use prefab asset position when dropping on the Hierarchy window" in your Scene View preferences. Enabling this setting restores Unity to the way it used to handle dragging in prefabs and not sure why this is off by default. So Edit > Preferences > Scene View > Enable 'Use prefab asset position when dropping on the Hierarchy window'
+Now, when you drag a prefab like DialogBox into a canvas it will appear at screen center. You can, of course, just Alt-click the center anchor position in Anchor Settings, but enabling the preference is easier.
+
 ### Corner Clicker
 
 **Description:** Old Reliable. Many times this was used to simply shutdown an app after four taps in the upper right corner. But you can require any number of taps in any corner, and use multiple corners. For instance two taps lower left, followed by two taps upper right could open a settings dialog. There is no set corner order - if UL and LR are both set to 2, it doesn't matter which corner you start in.
@@ -74,17 +77,35 @@ Suggestions or whatever: dmennenoh95@gmail.com
 **Description:** A simple, but flexible modal dialog box that's easy to customize using scriptable objects. Includes some common icons (error, info, question, success, warning) that you can use, or add your own.
 
 **Setup:**
-1. Drag the DialogBox prefab into a Canvas - this was built using 2K as a reference, so if you're reference resolution is 4K you may need to Alt-click the Stretch setting in Anchor Presets. This should land the dialog at center screen. Adjust as needed.
-2. Scale the DialogRoot if necessary. For a 4K canvas 1.75 in X and Y, works pretty well.
-3. Create a new instance of DialogData (KioskHelper > Scripts > Utilities) and give it an appropriate name for the dialog style - like dialogWarning, or dialogInfo
-4. Configure the settings for the new style/data asset.
-5. Pass an instance of the new asset into the DialogControllers Show() method - see below.
+1. Drag the DialogBox prefab into a Canvas. If it doesn't appear at center-screen have a look at the note at the start of this section. 
+2. Set the width and height of the rectTransform to match your canvases reference resolution settings.
+3. Scale the DialogRoot if necessary. It should be good if you're dropping into a 2K canvas, but if 4K you may want to change scale to 1.75 or so.
+4. Create a new instance of a DialogStyle scriptable object: Create new asset > Kiosk Helper > Dialog Style. 
+5. Configure the settings for the new style/data asset. 
+6. Pass an instance of the new asset into the DialogControllers Show() method.
 
 **Public Methods:**
 
 - `Show(styleInstance, title, text, primaryButtonText, secondaryButtonText, callBackMethod)`    
 
+If secondaryButtonText is omitted, or "" the secondary button will not be shown. If callBackMethod is omitted the dialog will just close once the button is pressed.
 
+Regarding passing an instance of the style object. In your controller, or whatever script you're opening the dialog from you will have a reference to `DialogController` on the Dialog Box, in order to call `Show()` on it. Just add another reference for the DialogStye and hook it up in the inspector. Something like: `[SerializeField] private DialogStyle myStyle` Then, when you want to show the dialog you can pass `myStyle`. If you've got multiple styles either use an array: `[SerializeField] private DialogStyle[] myStyles` or list them individually, it's up to you.
+`
+**Example:** 
+`[SerializeField] private DialogController dc;`
+`[SerializeField] private DialogStyle warningStyle;`
+`[SerializeField] private DialogStyle infoStyle;`
+
+`dc.Show(warningStyle, "NOTICE!", "Changes have not been saved", "OK", "Cancel", SaveDialogResult);`
+`dc.Show(infoStyle, "Welcome", "Thanks for joining!", "OK");`
+
+```
+private void SaveDialogResult(DialogResult result)
+{
+    Debug.Log($"Result: {result}"); //will print Primary, Secondary, Closed, or BackgroundClicked
+}
+```
 
 ### Scene Transitioner
 
@@ -106,7 +127,7 @@ Suggestions or whatever: dmennenoh95@gmail.com
 
 **Setup:**
 1. Drag the Timer prefab into a Canvas object and position it accordingly.
-2. You can use the anchor presets in the Timers Rect Transform to initially position it.
+2. See the note at the start of this section if the prefab appears off-screen initially. 
 3. If you'll be counting down and want to listen for `timerComplete`, use the Inspector to invoke a function in your code.
 
 **Public Methods:**
@@ -168,7 +189,7 @@ Suggestions or whatever: dmennenoh95@gmail.com
 
 ## Components - Scripts / Utilities
 
-### Dialog Data
+### Dialog Style
 
 **Description:** This is a scriptable object used for styling the dialog box prefab. Create an instance with Create New Asset > Kiosk Helper > Dialog Style 
 Give it an appropriate name and change the configuration values as needed. Pass these to the dialog box's Show() method to have different dialog styles. Within the KioskHelper \ Textures folder are various 50x50 dialog icons you can  use to get started.
@@ -203,6 +224,6 @@ Give it an appropriate name and change the configuration values as needed. Pass 
 ## Components - Scripts / Prefabs
 
 1. `Corner Clicker` - This is the script attached to the Corner Clicker prefab.
-2. `Dialog Controller` - This is the script attached to the DialogBox prefab.
+2. `Dialog Controller` - This is the script attached to the DialogBox prefab - contains the DialogResult enum.
 3. `Scene Transition Controller` - This is the controller script for the SceneTransitioner prefab.
 4. `Timer` - This is the timer script attached to the Timer prefab.

@@ -35,7 +35,7 @@ namespace KioskHelper
             Close();
         }
 
-        public void Show(DialogData style, string title, string mess, string priText = "OK", string secText = "",  Action<DialogResult> callback = null)
+        public void Show(DialogStyle style, string title, string mess, string priText = "OK", string secText = "",  Action<DialogResult> callback = null)
         {    
             onComplete = callback;
             
@@ -67,6 +67,8 @@ namespace KioskHelper
             gameObject.SetActive(true);
         }
 
+
+        //These are called from the dialog's buttons
         public void OnModalClicked()
         {
             if (closeOnBackgroundClick)

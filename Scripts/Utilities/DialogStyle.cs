@@ -4,7 +4,7 @@ namespace KioskHelper
 {
     [CreateAssetMenu(fileName = "Dialog Style", menuName = "KioskHelper/Dialog Style")]
 
-    public class DialogData : ScriptableObject
+    public class DialogStyle : ScriptableObject
     {
         [Header("Appearance")]
         public Sprite icon;
