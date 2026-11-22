@@ -91,19 +91,24 @@ Now, when you drag a prefab like DialogBox into a canvas it will appear at scree
 If secondaryButtonText is omitted, or "" the secondary button will not be shown. If callBackMethod is omitted the dialog will just close once the button is pressed.
 
 Regarding passing an instance of the style object. In your controller, or whatever script you're opening the dialog from you will have a reference to `DialogController` on the Dialog Box, in order to call `Show()` on it. Just add another reference for the DialogStye and hook it up in the inspector. Something like: `[SerializeField] private DialogStyle myStyle` Then, when you want to show the dialog you can pass `myStyle`. If you've got multiple styles either use an array: `[SerializeField] private DialogStyle[] myStyles` or list them individually, it's up to you.
-`
+
 **Example:** 
-`[SerializeField] private DialogController dc;`
-`[SerializeField] private DialogStyle warningStyle;`
-`[SerializeField] private DialogStyle infoStyle;`
-
-`dc.Show(warningStyle, "NOTICE!", "Changes have not been saved", "OK", "Cancel", SaveDialogResult);`
-`dc.Show(infoStyle, "Welcome", "Thanks for joining!", "OK");`
-
 ```
+[SerializeField] private DialogController dc;
+[SerializeField] private DialogStyle warningStyle;
+[SerializeField] private DialogStyle infoStyle;
+
+dc.Show(warningStyle, "NOTICE!", "Changes have not been saved", "OK", "Cancel", SaveDialogResult);
+dc.Show(infoStyle, "Welcome", "Thanks for joining!", "OK");
+
 private void SaveDialogResult(DialogResult result)
 {
     Debug.Log($"Result: {result}"); //will print Primary, Secondary, Closed, or BackgroundClicked
+    
+    if(result == DialogResult.Primary)
+    {
+        //user clicked OK... don't save
+    }
 }
 ```
 
