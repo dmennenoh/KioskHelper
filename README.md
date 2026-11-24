@@ -13,6 +13,7 @@ KioskHelper currently includes the following prefabs, scripts, and utilities:
 - **Dialog Box** - Customizable modal dialog box.
 - **Scene Transitioner** - Reusable horizontal and vertical wipe transitions between scenes.
 - **Timer** - Configurable count-up and countdown timer with completion events.
+- **Web Cam Photo** - Displays a live webcam feed and captures photos with optional flash and counter. Supports PNG, Base64 encoding, and saving captured images to disk.
 
 ### Scripts
 - **Idle Detector** - Monitors user activity and triggers warning, idle, and activity events.
@@ -142,8 +143,31 @@ private void SaveDialogResult(DialogResult result)
 - `StartCountdown()`            Starts the timer counting down to zero
 - `PauseTimer()`                Pauses/Stops the timer
 - `ResumeTimer()`               Resumes counting
-- `ResetTimer()`               Resets the timer. If counting down the timer is set to the initial starting time, otherwise it's set to zero.
+- `ResetTimer()`                Resets the timer. If counting down the timer is set to the initial starting time, otherwise it's set to zero.
 
+### Web Cam Photo
+
+**Description:** This is another component that got a lot of use; I've made a lot of photo booths over the years. Allows you to easily capture and save photo, and features a built in 'flash' and countdown timer.
+
+**Setup:**
+
+1. Drag the prefab into an existing Canvas and adjust the width/height in it's rectTransform to match your canvas.
+
+If you press play right now, you should see your web cam image appear, and also you will see the camera device names printed to the console. You can use these device names to fill in the device name field in the Inspector. Note I use 'contains' to do the check, so you can use something like 'C920' instead of the full 'HD Pro Webcam C920' that you'll see listed.
+
+2. Adjust the font, scale, and color of the countdown timer, if you're going to be using it.
+3. Adjust the Camera settings in the Inspector - specifically you'll want to fill in the Device Name field and probably the requested width and height. 
+4. Minimally, hook up the Photo Captured event, to call some function in your code, so that you know when a capture is ready. This is the only reliable way to know a photo is ready to be saved or further processed.
+5. Once you receive the event, you can call `GetPhotoPng(), SavePhoto() or GetPhotoBase64()`
+
+**Public Methods**
+- `StartCamera()` - Starts the web cam. Called automatically if 'Show Camera on Start' is checked in the Inspector.
+- `StopCamera()` - Stops the web cam. Called automatically when the prefab is disabled.
+- `TakePhoto(bool flash)` - Immediately captures a photo. If flash is true, the flash image will show briefly when the image is captured. Raises PhotoCaptured if hooked up in the Inspector.
+- `TakeTimedPhoto(bool flash)` - Captures a photo after displaying the counter. You can set the starting count in the prefab's Inspector. Default is 3 seconds. Raises PhotoCaptured if hooked up in the Inspector.
+- `GetPhotoPNG()` - Returns the photo data as a png encoded byte array.
+- `GetPhotoBase64()` - Returns the photo as a base 64 encoded string.
+- `SavePhoto(string path = null)` - Saves the photo to the specified path. If no path is supplied the photo is saved in Application.persistentDataPath.
 
 ## Components - Scripts
 
@@ -232,3 +256,4 @@ Give it an appropriate name and change the configuration values as needed. Pass 
 2. `Dialog Controller` - This is the script attached to the DialogBox prefab - contains the DialogResult enum.
 3. `Scene Transition Controller` - This is the controller script for the SceneTransitioner prefab.
 4. `Timer` - This is the timer script attached to the Timer prefab.
+5. `WebCamPhoto` - This is the script attached to the WebCamPhoto prefab.
