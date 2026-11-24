@@ -153,7 +153,7 @@ private void SaveDialogResult(DialogResult result)
 
 1. Drag the prefab into an existing Canvas and adjust the width/height in it's rectTransform to match your canvas.
 
-If you press play right now, you should see your web cam image appear, and also you will see the camera device names printed to the console. You can use these device names to fill in the device name field in the Inspector. Note I use 'contains' to do the check, so you can use something like 'C920' instead of the full 'HD Pro Webcam C920' that you'll see listed.
+If you press play right now, you should see your web cam image appear, and also you will see the camera device names printed to the console. You can use these device names to fill in the device name field in the Inspector. Note I use 'contains' to do the check, so you can use something like 'C920' instead of the full 'HD Pro Webcam C920' that you might see listed.
 
 2. Adjust the font, scale, and color of the countdown timer, if you're going to be using it.
 3. Adjust the Camera settings in the Inspector - specifically you'll want to fill in the Device Name field and probably the requested width and height. 
